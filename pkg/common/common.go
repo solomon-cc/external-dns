@@ -9,7 +9,6 @@ import (
 
 var (
 	Debug = false
-	//CfgPath = utils.UserHome() + "/.autok3s"
 	Backoff = wait.Backoff{
 		Duration: 30 * time.Second,
 		Factor:   1,

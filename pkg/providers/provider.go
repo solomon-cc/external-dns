@@ -25,9 +25,9 @@ type Provider interface {
 	// Create DNS record
 	CreateRecord() error
 	// Update DNS record
-	UpdateRecord() error
+	//UpdateRecord() error
 	// Delete DNS record
-	DeleteRecord() error
+	//DeleteRecord() error
 }
 
 // RegisterProvider registers a provider.Factory by name.
