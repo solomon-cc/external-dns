@@ -17,7 +17,7 @@ var (
 func main() {
 	rootCmd := cmd.Command()
 
-	rootCmd.AddCommand(cmd.VersionCommand(gitVersion, gitCommit, gitTreeState, buildDate),)
+	rootCmd.AddCommand(cmd.VersionCommand(gitVersion, gitCommit, gitTreeState, buildDate),cmd.CreateCommand())
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)

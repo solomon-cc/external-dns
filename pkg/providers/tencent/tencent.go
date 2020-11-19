@@ -5,6 +5,7 @@ import (
 
 	"external-dns/pkg/common"
 	"external-dns/pkg/providers"
+	"external-dns/pkg/sdk/tencent-cloud-sdk/services/dns"
 	"external-dns/pkg/types/tencent"
 
 	"github.com/sirupsen/logrus"
@@ -18,6 +19,7 @@ type checkFun func() error
 type Tencent struct {
 	tencent.Options `json:",inline"`
 
+	s      *dns.Client
 	m      *sync.Map
 	logger *logrus.Logger
 }
@@ -27,6 +29,7 @@ func init() {
 		return NewProvider(), nil
 	})
 }
+
 func NewProvider() *Tencent {
 	return &Tencent{
 		Options: tencent.Options{
@@ -48,7 +51,6 @@ func (p *Tencent) CreateRecord() error {
 func (p *Tencent) generateClientSDK() error {
 	p.logger = common.NewLogger(common.Debug)
 	p.logger.Infof("[%s] executing create sdk logic...\n", p.GetProviderName())
-
 
 	return nil
 }

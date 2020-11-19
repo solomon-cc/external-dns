@@ -1,10 +1,11 @@
 package sdk
 
 import (
-	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/auth/credentials"
 	"net/http"
 	"sync"
 	"time"
+
+	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/auth/credentials"
 )
 
 // Client the type Client
