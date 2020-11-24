@@ -40,7 +40,7 @@ func CreateCommand() *cobra.Command {
 		if reg, err := providers.GetProvider(pStr); err != nil {
 			logrus.Fatalln(err)
 		} else {
-			logrus.Info(reg)
+			cp = reg
 		}
 	}
 

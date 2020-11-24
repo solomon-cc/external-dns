@@ -45,12 +45,20 @@ func (p *Tencent) GetProviderName() string {
 }
 
 func (p *Tencent) CreateRecord() error {
+	p.logger = common.NewLogger(common.Debug)
+	p.logger.Infof("[%s] executing create dns record...\n", p.GetProviderName())
+
+
 	return nil
 }
 
 func (p *Tencent) generateClientSDK() error {
-	p.logger = common.NewLogger(common.Debug)
-	p.logger.Infof("[%s] executing create sdk logic...\n", p.GetProviderName())
+	client, err := dns.NewClientWithAccessKey(p.AccessKey, p.AccessSecret)
+	if err != nil {
+		return err
+	}
+	client.EnableAsync(5, 1000)
+	p.s = client
 
 	return nil
 }
