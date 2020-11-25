@@ -7,6 +7,10 @@ import (
 
 )
 
+const (
+	BindPrefix         = "external-dns.providers.%s.%s"
+)
+
 var (
 	Debug = false
 	Backoff = wait.Backoff{

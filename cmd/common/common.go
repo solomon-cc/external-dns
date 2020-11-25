@@ -1,9 +1,33 @@
 package common
 
 import (
+	"fmt"
 	"os"
 	"strings"
+
+	"external-dns/pkg/common"
+	"external-dns/pkg/providers"
+
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 )
+
+func BindPFlags(cmd *cobra.Command, p providers.Provider) {
+	name, err := cmd.Flags().GetString("provider")
+	if err != nil {
+		logrus.Fatalln(err)
+	}
+
+	cmd.Flags().Visit(func(f *pflag.Flag) {
+		if IsCredentialFlag(f.Name, p.BindCredentialFlags()) {
+			if err := viper.BindPFlag(fmt.Sprintf(common.BindPrefix, name, f.Name), f); err != nil {
+				logrus.Fatalln(err)
+			}
+		}
+	})
+}
 
 // Borrowed from https://github.com/docker/machine/blob/master/commands/create.go#L267.
 func FlagHackLookup(flagName string) string {
@@ -28,4 +52,14 @@ func FlagHackLookup(flagName string) string {
 	}
 
 	return ""
+}
+
+func IsCredentialFlag(s string, nfs *pflag.FlagSet) bool {
+	found := false
+	nfs.VisitAll(func(f *pflag.Flag) {
+		if strings.EqualFold(s, f.Name) {
+			found = true
+		}
+	})
+	return found
 }

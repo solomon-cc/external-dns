@@ -8,9 +8,8 @@ type Client struct {
 }
 
 // NewClientWithAccessKey is a shortcut to create sdk client with accesskey
-// usage: https://github.com/aliyun/alibaba-cloud-sdk-go/blob/master/docs/2-Client-EN.md
-func NewClientWithAccessKey(accessKeyId, accessKeySecret string) (client *Client, err error) {
+func NewClientWithSecretKey(accessKeyId, accessKeySecret string) (client *Client, err error) {
 	client = &Client{}
-	err = client.InitWithAccessKey(accessKeyId, accessKeySecret)
+	err = client.InitWithSecretKey(accessKeyId, accessKeySecret)
 	return
 }

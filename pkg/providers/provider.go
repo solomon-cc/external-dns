@@ -5,6 +5,8 @@ import (
 	"sync"
 
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 // Factory is a function that returns a Provider.Interface.
@@ -19,15 +21,17 @@ var (
 type Provider interface {
 	GetProviderName() string
 	// Create command flags.
-	//GetCreateFlags(cmd *cobra.Command) *pflag.FlagSet
+	GetCreateFlags(cmd *cobra.Command) *pflag.FlagSet
+	// Credential flags.
+	GetCredentialFlags(cmd *cobra.Command) *pflag.FlagSet
 	// Use this method to bind Viper, although it is somewhat repetitive.
-	//BindCredentialFlags() *pflag.FlagSet
+	BindCredentialFlags() *pflag.FlagSet
 	// Create DNS record
-	CreateRecord() error
+	CreateDnsRecord() error
 	// Update DNS record
-	//UpdateRecord() error
+	//UpdateDnsRecord() error
 	// Delete DNS record
-	//DeleteRecord() error
+	//DeleteDnsRecord() error
 }
 
 // RegisterProvider registers a provider.Factory by name.

@@ -12,7 +12,11 @@ import (
 )
 
 // ProviderName is the name of this provider.
-const ProviderName = "tencent"
+const (
+	ProviderName = "tencent"
+	secretID     = "secret-id"
+	secretKey    = "secret-key"
+)
 
 type checkFun func() error
 
@@ -33,7 +37,7 @@ func init() {
 func NewProvider() *Tencent {
 	return &Tencent{
 		Options: tencent.Options{
-			TTL: "600",
+			TTL: 600,
 		},
 		m: new(sync.Map),
 	}
@@ -44,16 +48,23 @@ func (p *Tencent) GetProviderName() string {
 	return ProviderName
 }
 
-func (p *Tencent) CreateRecord() error {
+func (p *Tencent) CreateDnsRecord() error {
 	p.logger = common.NewLogger(common.Debug)
 	p.logger.Infof("[%s] executing create dns record...\n", p.GetProviderName())
 
+	if err := p.generateClientSDK(); err != nil {
+		return err
+	}
+
+	request := dns.CreateAddDomainRecordRequest()
+	logrus.Info(p)
+	request.Value = p.Options.Value
 
 	return nil
 }
 
 func (p *Tencent) generateClientSDK() error {
-	client, err := dns.NewClientWithAccessKey(p.AccessKey, p.AccessSecret)
+	client, err := dns.NewClientWithSecretKey(p.SecretID, p.SecretKey)
 	if err != nil {
 		return err
 	}

@@ -33,11 +33,11 @@ func NewClient() (client *Client, err error) {
 	return
 }
 
-func (client *Client) InitWithAccessKey(accessKeyId, accessKeySecret string) (err error) {
+func (client *Client) InitWithSecretKey(secretID, secretKey string) (err error) {
 	config := client.InitClientConfig()
 	_ = &credentials.AccessKeyCredential{
-		AccessKeyId:     accessKeyId,
-		AccessKeySecret: accessKeySecret,
+		SecretID:     secretID,
+		SecretKey: secretKey,
 	}
 	return client.InitWithOptions(config)
 }
