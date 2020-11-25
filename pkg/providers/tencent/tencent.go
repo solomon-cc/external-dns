@@ -58,7 +58,9 @@ func (p *Tencent) CreateDnsRecord() error {
 
 	request := dns.CreateAddDomainRecordRequest()
 	logrus.Info(p)
-	request.Value = p.Options.Value
+	request.Value = p.Value
+	request.Domain = p.Domain
+	request.SubDomain = p.SubDomain
 
 	return nil
 }

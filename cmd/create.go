@@ -27,9 +27,6 @@ var (
 
 func init() {
 	createCmd.Flags().StringVarP(&cProvider, "provider", "p", "", "Provider is a module which provides an interface for managing cloud resources")
-	//createCmd.Flags().StringVarP(&Config.Domain, "domain", "d", "", "Domain is Host")
-	//createCmd.Flags().StringVarP(&Config.SubDomain, "sub_domain", "s", "", "SubDomain is Host record")
-	//createCmd.Flags().StringVarP(&Config.Value, "value", "a", "", "Value is record value of domain")
 }
 
 func CreateCommand() *cobra.Command {
