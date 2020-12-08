@@ -36,7 +36,7 @@ func NewClient() (client *Client, err error) {
 func (client *Client) InitWithSecretKey(secretID, secretKey string) (err error) {
 	config := client.InitClientConfig()
 	_ = &credentials.AccessKeyCredential{
-		SecretID:     secretID,
+		SecretID:  secretID,
 		SecretKey: secretKey,
 	}
 	return client.InitWithOptions(config)
@@ -87,5 +87,15 @@ func (client *Client) InitWithOptions(config *Config) (err error) {
 		client.EnableAsync(config.GoRoutinePoolSize, config.MaxTaskQueueSize)
 	}
 
+	return
+}
+
+// TODO
+func (client *Client) DoAction() (err error) {
+	return
+}
+
+// TODO
+func (client *Client) DoActionWithSigner() (err error) {
 	return
 }

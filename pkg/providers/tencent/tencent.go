@@ -62,8 +62,10 @@ func (p *Tencent) CreateDnsRecord() error {
 	request.Domain = p.Domain
 	request.SubDomain = p.SubDomain
 
-
-
+	_, err := p.s.AddDnsRecord(request)
+	if err != nil {
+		p.logger.Errorf("[%s] error add dns record\n", p.GetProviderName())
+	}
 	return nil
 }
 
