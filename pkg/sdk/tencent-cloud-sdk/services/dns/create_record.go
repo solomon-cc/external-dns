@@ -19,6 +19,7 @@ func CreateAddDomainRecordRequest() (request *AddDnsRecordRequest) {
 	request = &AddDnsRecordRequest{
 		Options: &tencent.Options{
 			TTL: 600,
+			Action: "RecordCreate",
 		},
 	}
 

@@ -1,11 +1,17 @@
 package sdk
 
 import (
+	"fmt"
+	"math/rand"
 	"net/http"
+	"net/url"
+	"strconv"
 	"sync"
 	"time"
 
 	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/auth/credentials"
+	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/auth/signers"
+	"external-dns/pkg/sdk/tencent-cloud-sdk/services/dns"
 )
 
 // Client the type Client
@@ -92,10 +98,35 @@ func (client *Client) InitWithOptions(config *Config) (err error) {
 
 // TODO
 func (client *Client) DoAction() (err error) {
+
 	return
 }
 
 // TODO
-func (client *Client) DoActionWithSigner() (err error) {
-	return
+func (client *Client) DoActionWithSigner(request *dns.AddDnsRecordRequest) (signStr string) {
+	timeStamp := strconv.FormatInt(time.Now().Unix(), 10)
+	rand.Seed(time.Now().UnixNano())
+	x := strconv.Itoa(rand.Intn(65535310))
+
+	uri := fmt.Sprintf("GETcns.api.qcloud.com/v2/index.php?"+
+		"Action=%s"+
+		"&Nonce=%s"+
+		"&SecretId=%s"+
+		"&SignatureMethod=HmacSHA256"+
+		"&Timestamp=%s", request.Action, x, request.SecretID, timeStamp)
+
+	params := fmt.Sprintf(
+		"&Nonce=%s"+
+			"&SecretId=%s"+
+			"&Signature=%s"+
+			"&SignatureMethod=HmacSHA256"+
+			"&Timestamp=%s"+
+			"&Action=%s"+
+			"&domain=%s"+
+			"&subDomain=%s"+
+			"&recordType=A"+
+			"&recodline=%s"+
+			"&value=%s", x, request.SecretID, url.QueryEscape(signers.ComputeHmacSha256(uri, request.SecretKey)), timeStamp, request.Action, request.Domain, request.SubDomain, "默认", request.Value)
+
+	return params
 }
