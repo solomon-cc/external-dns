@@ -1,6 +1,8 @@
 package sdk
 
 import (
+	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/requests"
+	"external-dns/pkg/sdk/tencent-cloud-sdk/sdk/responses"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -97,7 +99,7 @@ func (client *Client) InitWithOptions(config *Config) (err error) {
 }
 
 // TODO
-func (client *Client) DoAction() (err error) {
+func (client *Client) DoAction(request requests.AcsRequest, response responses.AcsResponse) (err error) {
 	response,_ = client.httpClient.Get()
 	return
 }

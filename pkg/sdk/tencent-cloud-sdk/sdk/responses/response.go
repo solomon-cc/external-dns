@@ -32,6 +32,14 @@ func (baseResponse *BaseResponse) GetHttpHeaders() map[string][]string {
 	return baseResponse.httpHeaders
 }
 
+func (baseResponse *BaseResponse) GetHttpContentString() string {
+	return baseResponse.httpContentString
+}
+
+func (baseResponse *BaseResponse) GetHttpContentBytes() []byte {
+	return baseResponse.httpContentBytes
+}
+
 func (baseResponse *BaseResponse) GetOriginHttpResponse() *http.Response {
 	return baseResponse.originHttpResponse
 }
