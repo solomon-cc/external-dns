@@ -7,7 +7,7 @@ import (
 
 func (client *Client) AddDnsRecord(request *AddDnsRecordRequest) (response *AddDnsRecordResponse, err error) {
 	response = CreateAddDnsRecordResponse()
-	err = client.DoAction(request, response)
+	err = client.DoAction(request)
 	return
 }
 

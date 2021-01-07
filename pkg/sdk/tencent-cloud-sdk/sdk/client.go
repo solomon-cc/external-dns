@@ -98,11 +98,11 @@ func (client *Client) InitWithOptions(config *Config) (err error) {
 
 // TODO
 func (client *Client) DoAction() (err error) {
-
+	response,_ = client.httpClient.Get()
 	return
 }
 
-// TODO
+
 func (client *Client) DoActionWithSigner(request *dns.AddDnsRecordRequest) (signStr string) {
 	timeStamp := strconv.FormatInt(time.Now().Unix(), 10)
 	rand.Seed(time.Now().UnixNano())

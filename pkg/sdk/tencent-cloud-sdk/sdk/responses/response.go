@@ -4,6 +4,16 @@ import (
 	"io/ioutil"
 	"net/http"
 )
+type AcsResponse interface {
+	IsSuccess() bool
+	GetHttpStatus() int
+	GetHttpHeaders() map[string][]string
+	GetHttpContentString() string
+	GetHttpContentBytes() []byte
+	GetOriginHttpResponse() *http.Response
+	parseFromHttpResponse(httpResponse *http.Response) error
+}
+
 
 type BaseResponse struct {
 	httpStatus         int
